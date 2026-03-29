@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "423692381452",
+    "project_id": "projetoandr-mateus-fernandes",
+    "storage_bucket": "projetoandr-mateus-fernandes.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423692381452:android:d0f9933181a14e68c06d29",
+        "android_client_info": {
+          "package_name": "br.com.faculdade.mateusfernandesgoncalves"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDViZVNx2rAvcA0v5Az0PH92owdcYjiLE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
