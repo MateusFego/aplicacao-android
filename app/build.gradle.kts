@@ -5,21 +5,20 @@ plugins {
 }
 
 android {
-    // ESSA LINHA É A QUE ELE ESTÁ RECLAMANDO:
-    compileSdk = 36
+    // Definimos 34 como você pediu
+    compileSdk = 34
 
     namespace = "br.com.faculdade.mateusfernandesgoncalves"
 
     defaultConfig {
         applicationId = "br.com.faculdade.mateusfernandesgoncalves"
-        minSdk = 26  // Corrigimos o erro anterior do Manifest aqui
-        targetSdk = 35
+        minSdk = 26
+        targetSdk = 34 // Recomendo manter igual ao compileSdk para evitar avisos
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
 
     buildTypes {
         release {
@@ -30,34 +29,33 @@ android {
             )
         }
     }
+
+    // Configuração do Java 17 para o seu PC recém-formatado
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        // Desativamos o compose para não dar erro de versão de Kotlin
-        compose = false
+        jvmTarget = "17"
     }
 }
 
 dependencies {
-    // Bibliotecas essenciais para o seu Layout XML
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
+    // IMPORTANTE: Forçamos versões compatíveis com API 34
+    // Se o seu 'libs.versions.toml' estiver puxando 1.18.0, vai dar erro.
+    // Por isso, vamos usar as versões diretas aqui:
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.activity:activity-ktx:1.8.2")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
-    // Firebase (Usando a BOM para gerenciar versões)
-    implementation(platform("com.google.firebase:firebase-bom:34.11.0"))
+    // Firebase (BOM estável para API 34)
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
 
-    // Testes
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

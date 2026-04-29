@@ -1,16 +1,14 @@
 package br.com.faculdade.mateusfernandesgoncalves
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore // Importação que faltava
+import com.google.firebase.firestore.FirebaseFirestore
 
 class FormCadastro : AppCompatActivity() {
 
@@ -21,22 +19,14 @@ class FormCadastro : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        // 1. PRIMEIRO define o layout
         setContentView(R.layout.activity_form_cadastro)
 
-        // 2. DEPOIS inicializa os componentes
+        supportActionBar?.hide()
+
         edit_nome = findViewById(R.id.edit_nome)
         edit_email = findViewById(R.id.edit_email)
         edit_senha = findViewById(R.id.edit_senha)
         btnCadastrar = findViewById(R.id.bt_cadastrar)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         btnCadastrar.setOnClickListener { view ->
             val nome = edit_nome.text.toString().trim()
@@ -44,8 +34,7 @@ class FormCadastro : AppCompatActivity() {
             val senha = edit_senha.text.toString().trim()
 
             if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
-                val snackbar = Snackbar.make(view, "Preencha todos os campos!", Snackbar.LENGTH_LONG)
-                snackbar.show()
+                Snackbar.make(view, "Preencha todos os campos!", Snackbar.LENGTH_LONG).show()
             } else {
                 cadastrarUsuario(view)
             }
@@ -60,7 +49,10 @@ class FormCadastro : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     salvarDadosUsuario()
-                    Snackbar.make(view, "Cadastro realizado com sucesso", Snackbar.LENGTH_LONG).show()
+                    // Redireciona para a tela principal após o cadastro
+                    val intent = Intent(this, TelaPrincipal::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
                     val erro = task.exception?.message ?: "Erro ao cadastrar"
                     Snackbar.make(view, erro, Snackbar.LENGTH_LONG).show()
@@ -81,15 +73,7 @@ class FormCadastro : AppCompatActivity() {
                 "email" to email,
                 "uid" to usuarioID
             )
-
-            db.collection("Usuarios").document(usuarioID) // Dica: use o UID como nome do documento
-                .set(usuarios)
-                .addOnSuccessListener {
-                    println("Dados salvos com sucesso no Firestore")
-                }
-                .addOnFailureListener { e ->
-                    println("Erro ao salvar no Firestore: ${e.message}")
-                }
+            db.collection("Usuarios").document(usuarioID).set(usuarios)
         }
     }
 }
