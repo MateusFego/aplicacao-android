@@ -66,7 +66,7 @@
             android:id="@+id/bt_entrada"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/entrar"
+            android:text="Entrar"
             style="@style/button"
             app:layout_constraintStart_toStartOf="@+id/containercomponens"
             app:layout_constraintEnd_toEndOf="@+id/containercomponens"
@@ -78,20 +78,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:indeterminateTint="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bt_entrada"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="15dp"/>
 
         <TextView
             android:id="@+id/text_tela_cadastro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_cadastro"
+            android:text="Crie uma conta clicando aqui"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="60dp"
             android:paddingBottom="20dp"
             app:layout_constraintTop_toBottomOf="@+id/bt_entrada"
             app:layout_constraintStart_toStartOf="parent"

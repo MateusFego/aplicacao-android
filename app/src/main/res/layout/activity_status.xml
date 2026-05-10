@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="#F5F5F5">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cyber Security Scanner"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#2C3E50"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consulte vulnerabilidades em softwares (NIST/CVE)"
+        android:textSize="14sp"
+        android:layout_marginBottom="20dp" />
+
+    <EditText
+        android:id="@+id/editBuscaCVE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ex: Android, Windows, Linux..."
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"/>
+
+    <Button
+        android:id="@+id/btBuscarCVE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Consultar Vulnerabilidades"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#2980B9"
+        android:textColor="#FFFFFF" />
+
+    <ProgressBar
+        android:id="@+id/progressCVE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/txtResultadoCVE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Os resultados aparecerão aqui..."
+            android:textSize="14sp"
+            android:textColor="#34495E" />
+    </ScrollView>
+
+</LinearLayout>
