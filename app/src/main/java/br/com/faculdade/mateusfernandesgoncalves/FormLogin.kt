@@ -14,9 +14,9 @@ import com.google.firebase.auth.FirebaseAuth
 
 class FormLogin : AppCompatActivity() {
 
-    private lateinit var edit_email: EditText
-    private lateinit var edit_senha: EditText
-    private lateinit var bt_entrada: Button
+    private lateinit var editEmail: EditText
+    private lateinit var editSenha: EditText
+    private lateinit var btEntrada: Button
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,17 +24,17 @@ class FormLogin : AppCompatActivity() {
         setContentView(R.layout.activity_form_login)
 
         supportActionBar?.hide()
-        IniciarComponents()
+        iniciarComponentes()
 
         val linkFormCadastro = findViewById<TextView>(R.id.text_tela_cadastro)
         linkFormCadastro.setOnClickListener {
-            val intent = Intent(this, FormCadastro::class.java)
+            val intent = Intent(this@FormLogin, FormCadastro::class.java)
             startActivity(intent)
         }
 
-        bt_entrada.setOnClickListener {
-            val email = edit_email.text.toString()
-            val senha = edit_senha.text.toString()
+        btEntrada.setOnClickListener {
+            val email = editEmail.text.toString()
+            val senha = editSenha.text.toString()
 
             if (email.isEmpty() || senha.isEmpty()) {
                 val snackbar = Snackbar.make(it, "Preencha todos os campos!", Snackbar.LENGTH_LONG)
@@ -42,35 +42,39 @@ class FormLogin : AppCompatActivity() {
                 snackbar.setTextColor(Color.BLACK)
                 snackbar.show()
             } else {
-                AutenticarUsuario()
+                autenticarUsuario()
             }
         }
     }
 
-    private fun IniciarComponents() {
-        edit_email = findViewById(R.id.edit_email)
-        edit_senha = findViewById(R.id.edit_senha)
-        bt_entrada = findViewById(R.id.bt_entrada)
+    private fun iniciarComponentes() {
+        editEmail = findViewById(R.id.edit_email)
+        editSenha = findViewById(R.id.edit_senha)
+        btEntrada = findViewById(R.id.bt_entrada)
         progressBar = findViewById(R.id.progress_bar)
     }
 
-    fun AutenticarUsuario() {
-        val email = edit_email.text.toString()
-        val senha = edit_senha.text.toString()
+    private fun autenticarUsuario() {
+        val email = editEmail.text.toString()
+        val senha = editSenha.text.toString()
 
         progressBar.visibility = View.VISIBLE
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener { task ->
+                // Loading para IMEDIATAMENTE aqui
+                progressBar.visibility = View.GONE
+
                 if (task.isSuccessful) {
-                    progressBar.visibility = View.GONE
-                    val intent = Intent(this@FormLogin, TelaPrincipal::class.java)
+                    val intent = Intent(this@FormLogin, TelaPerfil::class.java)
                     startActivity(intent)
                     finish()
                 } else {
-                    progressBar.visibility = View.GONE
                     val erro = task.exception?.message ?: "Erro ao autenticar"
-                    Snackbar.make(findViewById(android.R.id.content), erro, Snackbar.LENGTH_LONG).show()
+                    val snackbar = Snackbar.make(findViewById(android.R.id.content), erro, Snackbar.LENGTH_LONG)
+                    snackbar.setBackgroundTint(Color.RED)
+                    snackbar.setTextColor(Color.WHITE)
+                    snackbar.show()
                 }
             }
     }
