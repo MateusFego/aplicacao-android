@@ -8,10 +8,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +20,7 @@ class FormLogin : AppCompatActivity() {
     private lateinit var bt_entrada: Button
     private lateinit var progressBar: ProgressBar
     private lateinit var text_tela_cadastro: TextView
+    private lateinit var txt_nome_app: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +71,7 @@ class FormLogin : AppCompatActivity() {
         bt_entrada = findViewById(R.id.bt_entrada)
         progressBar = findViewById(R.id.progress_bar)
         text_tela_cadastro = findViewById(R.id.text_tela_cadastro)
+        txt_nome_app = findViewById(R.id.txt_nome_app)
     }
 
     fun AutenticarUsuario() {
